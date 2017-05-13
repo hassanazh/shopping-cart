@@ -13,6 +13,7 @@ object ShoppingCart {
     val totalBill = getTotalBill(getInventoryFile(), appleAmount, orangeAmount)
 
     println(s"Your actual bill is: £ $totalBill")
+    println(s"Your discounted bill is: £ ${getFinalBillAfterDiscount(totalBill, appleAmount, orangeAmount)}")
   }
 
   def getInventoryFile(fileName: String = "/inventory.txt"): List[String] =
@@ -30,4 +31,9 @@ object ShoppingCart {
         case _ => amount
       }
     }
+
+  def getFinalBillAfterDiscount(totalBill: BigDecimal, appleAmount: BigDecimal, orangeAmount: BigDecimal): BigDecimal =
+    totalBill -
+      ((appleCount.get() / 2) * appleAmount) -
+      ((orangeCount.get() / 3) * orangeAmount)
 }
